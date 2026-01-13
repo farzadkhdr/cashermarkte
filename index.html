@@ -1,0 +1,3217 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سیستەمی کاشێری ئەلکترۆنیات</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #7209b7;
+            --success: #4cc9f0;
+            --danger: #f72585;
+            --warning: #f8961e;
+            --info: #4895ef;
+            --dark: #212529;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --gray-light: #e9ecef;
+            --border-radius: 10px;
+            --box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            direction: rtl;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* شێوازی پەڕەی چوونەژوورەوە */
+        #loginPage {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            padding: 20px;
+            animation: gradientBG 10s ease infinite;
+            background-size: 400% 400%;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .login-container {
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+        
+        .login-box {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 40px 30px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .login-header .logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .login-header h2 {
+            color: var(--dark);
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+        
+        .login-header p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .login-form {
+            margin-top: 20px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark);
+            font-weight: 500;
+        }
+        
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .login-btn:hover {
+            background: linear-gradient(to right, var(--primary-dark), #6310a3);
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(0,0,0,0.15);
+        }
+        
+        .login-btn i {
+            margin-left: 10px;
+        }
+        
+        /* بارەگەی سەرەوە */
+        .header {
+            height: 70px;
+            background-color: white;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            padding: 0 30px;
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 99;
+            transition: var(--transition);
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .header-center {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .header-center h1 {
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            background-color: var(--gray-light);
+            padding: 8px 15px;
+            border-radius: 30px;
+            margin-left: 15px;
+        }
+        
+        .user-info i {
+            margin-left: 8px;
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+        
+        .logout-btn {
+            background-color: var(--danger);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        .logout-btn:hover {
+            background-color: #e11575;
+        }
+        
+        .sync-btn {
+            background-color: var(--success);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .sync-btn:hover {
+            background-color: #3ab8e0;
+        }
+        
+        .sync-btn.syncing {
+            background-color: var(--warning);
+        }
+        
+        /* بەشی ناوەڕاست */
+        .main-content {
+            padding: 100px 30px 30px;
+            min-height: 100vh;
+            overflow-y: auto;
+            margin-top: 70px;
+        }
+        
+        .main-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .main-content::-webkit-scrollbar-track {
+            background: var(--gray-light);
+            border-radius: 10px;
+        }
+        
+        .main-content::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+        
+        .main-content::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+        
+        /* بەشەکانی ناوەڕاست */
+        .content-section {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .content-section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* کارتەکانی داشبۆرد */
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: var(--dark);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 3px;
+        }
+        
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 25px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+        
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .card-1 .card-icon { background-color: var(--primary); }
+        .card-2 .card-icon { background-color: var(--success); }
+        .card-3 .card-icon { background-color: var(--warning); }
+        .card-4 .card-icon { background-color: var(--danger); }
+        .card-5 .card-icon { background-color: var(--secondary); }
+        .card-6 .card-icon { background-color: var(--info); }
+        
+        .card h3 {
+            font-size: 1.1rem;
+            color: var(--gray);
+            margin-bottom: 10px;
+        }
+        
+        .card-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+        
+        /* بەشی فرۆشتن */
+        .sale-container {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .cart-container {
+            background-color: var(--gray-light);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-top: 20px;
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .search-container {
+            margin-bottom: 25px;
+        }
+        
+        .search-box {
+            position: relative;
+            max-width: 500px;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 15px 50px 15px 15px;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+        
+        .suggestions {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            left: 0;
+            background-color: white;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            z-index: 10;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+        }
+        
+        .suggestion-item {
+            padding: 12px 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .suggestion-item:hover {
+            background-color: var(--gray-light);
+        }
+        
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+        
+        .cart-items-container {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--border-radius);
+            padding: 10px;
+            background-color: white;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+            border: 1px solid var(--gray-light);
+        }
+        
+        .btn-quantity {
+            border: none;
+            background: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .btn-quantity:hover {
+            color: var(--primary-dark);
+        }
+        
+        .payment-options {
+            display: flex;
+            margin-top: 20px;
+            gap: 15px;
+        }
+        
+        .payment-option {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid var(--gray-light);
+            border-radius: var(--border-radius);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .payment-option.selected {
+            border-color: var(--primary);
+            background-color: rgba(67, 97, 238, 0.05);
+        }
+        
+        .customer-selection {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--gray-light);
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #3ab8e0;
+        }
+        
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #e11575;
+        }
+        
+        .btn-warning {
+            background-color: var(--warning);
+            color: white;
+        }
+        
+        .btn-warning:hover {
+            background-color: #e68905;
+        }
+        
+        /* بەشی مێژوو */
+        .history-container {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .history-search {
+            margin-bottom: 20px;
+        }
+        
+        .history-list {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .list-items {
+            list-style: none;
+        }
+        
+        .list-item {
+            padding: 15px;
+            border-bottom: 1px solid var(--gray-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+        
+        .list-item:hover {
+            background-color: var(--gray-light);
+        }
+        
+        .item-name {
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .item-value {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        /* بەشی قەرزەکان */
+        .debt-container {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+        }
+        
+        .debt-list {
+            max-height: 500px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+        
+        /* ئاگاداری */
+        .notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 15px 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            z-index: 2000;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .notification.success {
+            background-color: #28a745;
+            color: white;
+        }
+        
+        .notification.error {
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        .notification.info {
+            background-color: #17a2b8;
+            color: white;
+        }
+        
+        .notification.warning {
+            background-color: #ffc107;
+            color: var(--dark);
+        }
+        
+        /* مۆدال */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: var(--border-radius);
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalFadeIn 0.3s ease;
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        /* فاکتوور */
+        .invoice {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+        
+        .invoice-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 20px;
+        }
+        
+        .invoice-logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .invoice-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        
+        .invoice-table th, .invoice-table td {
+            padding: 12px 15px;
+            text-align: right;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .invoice-table th {
+            background-color: var(--gray-light);
+            font-weight: 600;
+        }
+        
+        .invoice-total {
+            text-align: left;
+            margin-top: 30px;
+            font-size: 1.2rem;
+        }
+        
+        .print-options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        /* وەڵامی مۆبایل */
+        @media (max-width: 768px) {
+            .dashboard-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .payment-options {
+                flex-direction: column;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .header-center h1 {
+                font-size: 1.2rem;
+            }
+        }
+        
+        /* بۆستەی بچووک */
+        .btn-sm {
+            padding: 5px 10px;
+            font-size: 0.8rem;
+        }
+        
+        /* رەنگەکانی قەرز */
+        .item-value.debt-positive {
+            color: #f72585;
+            font-weight: 600;
+        }
+        
+        .item-value.debt-negative {
+            color: #212529;
+            font-weight: 600;
+        }
+        
+        .item-value.debt-zero {
+            color: #6c757d;
+            font-weight: 600;
+        }
+        
+        /* ستەیتەکانی سینک */
+        .sync-status {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .sync-status.online {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+        
+        .sync-status.offline {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+        }
+        
+        .sync-status.syncing {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: #ffc107;
+        }
+    </style>
+</head>
+<body>
+    <!-- پەڕەی چوونەژوورەوە -->
+    <div id="loginPage" class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <div class="logo">کاشێر</div>
+                <h2>سیستەمی فرۆشتی کاشێر</h2>
+                <p>تکایە ناوی بەکارهێنەر و وشەی نهێنی داخڵ بکە</p>
+            </div>
+            
+            <form id="loginForm" class="login-form">
+                <div class="input-group">
+                    <label for="username"><i class="fas fa-user"></i> ناوی بەکارهێنەر</label>
+                    <input type="text" id="username" placeholder="ناوی بەکارهێنەر" value="cashier1" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="password"><i class="fas fa-lock"></i> وشەی نهێنی</label>
+                    <input type="password" id="password" placeholder="وشەی نهێنی" value="cashier123" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="cashierLocation"><i class="fas fa-store"></i> شوێنی کاشێر</label>
+                    <select id="cashierLocation" required>
+                        <option value="">شوێنێک هەڵبژێرە</option>
+                        <option value="فرۆشگای سەرەکی" selected>فرۆشگای سەرەکی</option>
+                        <option value="فرۆشگای ٢">فرۆشگای ٢</option>
+                        <option value="فرۆشگای ٣">فرۆشگای ٣</option>
+                        <option value="فرۆشگای ٤">فرۆشگای ٤</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> چوونەژوورەوە
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- پەڕەی سەرەکی سیستم -->
+    <div id="mainPage" style="display: none;">
+        <!-- بارەگەی سەرەوە -->
+        <header class="header" id="header">
+            <div class="header-left">
+                <div class="logo">کاشێر</div>
+            </div>
+            
+            <div class="header-center">
+                <h1 id="pageTitle">داشبۆرد</h1>
+            </div>
+            
+            <div class="header-right">
+                <div class="sync-status online" id="syncStatus">
+                    <i class="fas fa-wifi"></i> پەیوەندی
+                </div>
+                <button class="sync-btn" id="syncBtn">
+                    <i class="fas fa-sync-alt"></i> سینک
+                </button>
+                <div class="user-info">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="currentUser">کاشێر</span> - 
+                    <span id="currentLocation">فرۆشگای سەرەکی</span>
+                </div>
+                <button class="logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> چوونەدەرەوە
+                </button>
+            </div>
+        </header>
+
+        <!-- بەشی ناوەڕاست -->
+        <main class="main-content" id="mainContent">
+            <!-- داشبۆرد -->
+            <section id="dashboardSection" class="content-section active">
+                <h2 class="section-title">داشبۆردی کاشێر</h2>
+                
+                <div class="dashboard-cards">
+                    <div class="card card-1">
+                        <div class="card-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <h3>فرۆشتنەکانی ئەمڕۆ</h3>
+                        <div class="card-value" id="todaySalesCount">٠</div>
+                        <div id="todaySalesTotal" style="font-size: 1.2rem; color: var(--gray);">٠ دینار</div>
+                    </div>
+                    
+                    <div class="card card-2">
+                        <div class="card-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <h3>کۆی فرۆشتنە نەقدییەکان</h3>
+                        <div class="card-value" id="cashSalesTotal">٠ دینار</div>
+                        <div style="font-size: 0.9rem; color: var(--gray);">ئەمڕۆ</div>
+                    </div>
+                    
+                    <div class="card card-3">
+                        <div class="card-icon">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                        </div>
+                        <h3>کۆی فرۆشتنە قەرزییەکان</h3>
+                        <div class="card-value" id="creditSalesTotal">٠ دینار</div>
+                        <div style="font-size: 0.9rem; color: var(--gray);">ئەمڕۆ</div>
+                    </div>
+                    
+                    <div class="card card-4">
+                        <div class="card-icon">
+                            <i class="fas fa-history"></i>
+                        </div>
+                        <h3>فرۆشتنە سینک نەکراوەکان</h3>
+                        <div class="card-value" id="pendingSyncCount">٠</div>
+                        <div style="font-size: 0.9rem; color: var(--danger);">چاوەروان بۆ سینک</div>
+                    </div>
+                    
+                    <div class="card card-5">
+                        <div class="card-icon">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                        <h3>کڕیارە قەرزدارەکان</h3>
+                        <div class="card-value" id="debtorsCount">٠</div>
+                        <div style="font-size: 0.9rem; color: var(--gray);">کۆی قەرز: <span id="totalDebtAmount">٠</span> دینار</div>
+                    </div>
+                    
+                    <div class="card card-6">
+                        <div class="card-icon">
+                            <i class="fas fa-cash-register"></i>
+                        </div>
+                        <h3>کۆی نەقدی ئەمڕۆ</h3>
+                        <div class="card-value" id="todayCashTotal">٠ دینار</div>
+                        <div style="font-size: 0.9rem; color: var(--success);">نەقدی + قەرزەکان</div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons" style="margin-top: 40px; justify-content: center;">
+                    <button class="btn btn-primary btn-lg" id="startNewSaleBtn">
+                        <i class="fas fa-plus-circle"></i> دەستپێکردنی فرۆشتنێکی نوێ
+                    </button>
+                </div>
+            </section>
+
+            <!-- بەشی فرۆشتن -->
+            <section id="saleSection" class="content-section">
+                <div class="sale-container">
+                    <h2 class="section-title">سیستەمی فرۆشتن</h2>
+                    
+                    <div class="search-container">
+                        <div class="search-box">
+                            <input type="text" id="productSearch" placeholder="گەڕان بەدوای کاڵا یان بارکۆد... (یان بارکۆد بخوێنەرەوە)">
+                            <i class="fas fa-search"></i>
+                            <div class="suggestions" id="productSuggestions"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="cart-container">
+                        <div class="cart-header">
+                            <h3>سەبەتە</h3>
+                            <div>
+                                <button class="btn btn-danger btn-sm" id="clearCartBtn">
+                                    <i class="fas fa-trash"></i> سڕینەوەی هەموو سەبەتە
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="cart-items-container" id="cartItemsContainer">
+                            <!-- کاڵاکانی سەبەتە لێرە نمایش دەدرێن -->
+                            <div style="text-align: center; padding: 40px; color: var(--gray);">
+                                <i class="fas fa-shopping-cart fa-3x" style="margin-bottom: 15px;"></i>
+                                <p>سەبەتە بەتاڵە</p>
+                                <p style="font-size: 0.9rem;">کاڵایەک زیاد بکە یان بارکۆدێک بخوێنەرەوە</p>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 20px; padding: 15px; background-color: white; border-radius: var(--border-radius);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <h4 style="margin: 0;">کۆی گشتی:</h4>
+                                <div id="cartTotal" style="font-size: 1.8rem; font-weight: bold; color: var(--primary);">
+                                    ٠ دینار
+                                </div>
+                            </div>
+                            
+                            <div id="cartSummary" style="margin-top: 10px; font-size: 0.9rem; color: var(--gray);">
+                                ٠ کاڵا | ٠ دینار
+                            </div>
+                        </div>
+                        
+                        <div class="payment-options">
+                            <div class="payment-option selected" data-payment="cash">
+                                <i class="fas fa-money-bill-wave fa-2x"></i>
+                                <div style="margin-top: 10px;">نەقدی</div>
+                            </div>
+                            <div class="payment-option" data-payment="credit">
+                                <i class="fas fa-file-invoice-dollar fa-2x"></i>
+                                <div style="margin-top: 10px;">قەرز</div>
+                            </div>
+                            <div class="payment-option" data-payment="mixed">
+                                <i class="fas fa-hand-holding-usd fa-2x"></i>
+                                <div style="margin-top: 10px;">تێکەڵ</div>
+                            </div>
+                        </div>
+                        
+                        <div id="customerSelection" style="display: none; margin-top: 20px;">
+                            <div class="customer-selection">
+                                <h4 style="margin-bottom: 15px;">هەڵبژاردنی کڕیار بۆ قەرز</h4>
+                                <div class="search-box">
+                                    <input type="text" id="customerSearch" placeholder="گەڕان بەدوای کڕیار...">
+                                    <i class="fas fa-user"></i>
+                                    <div class="suggestions" id="customerSuggestions"></div>
+                                </div>
+                                <div id="selectedCustomerInfo" style="margin-top: 10px; display: none; padding: 10px; background-color: var(--gray-light); border-radius: var(--border-radius);">
+                                    <p><strong>کڕیاری هەڵبژێردراو:</strong> <span id="selectedCustomerName"></span></p>
+                                    <p><strong>قەرزی پێشوو:</strong> <span id="selectedCustomerDebt"></span> دینار</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="mixedPaymentSection" style="display: none; margin-top: 20px;">
+                            <div class="customer-selection">
+                                <h4 style="margin-bottom: 15px;">پارەدانی تێکەڵ</h4>
+                                <div class="input-group">
+                                    <label for="cashAmount">بڕی نەقدی</label>
+                                    <input type="number" id="cashAmount" placeholder="بڕی نەقدی بە دینار" value="0">
+                                </div>
+                                <div class="input-group">
+                                    <label for="creditAmount">بڕی قەرز</label>
+                                    <input type="number" id="creditAmount" placeholder="بڕی قەرز بە دینار" value="0" readonly>
+                                </div>
+                                <div class="search-box" style="margin-top: 10px;">
+                                    <input type="text" id="mixedCustomerSearch" placeholder="گەڕان بەدوای کڕیار بۆ قەرز...">
+                                    <i class="fas fa-user"></i>
+                                    <div class="suggestions" id="mixedCustomerSuggestions"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button class="btn btn-warning" id="printInvoiceBtn">
+                                <i class="fas fa-print"></i> پرێنتکردنی فاکتوور
+                            </button>
+                            <button class="btn btn-success" id="completeSaleBtn">
+                                <i class="fas fa-check-circle"></i> تەواوکردنی فرۆشتن
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- بەشی مێژووی فرۆشتن -->
+            <section id="historySection" class="content-section">
+                <h2 class="section-title">مێژووی فرۆشتن</h2>
+                
+                <div class="history-container">
+                    <div class="history-search">
+                        <div class="search-box">
+                            <input type="text" id="historySearch" placeholder="گەڕان بە کۆدی فاکتوورە یان ناوی کڕیار...">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div style="display: flex; gap: 10px; margin-top: 15px;">
+                            <select id="historyDateFilter" style="padding: 10px; border-radius: var(--border-radius); border: 1px solid var(--gray-light);">
+                                <option value="today">ئەمڕۆ</option>
+                                <option value="yesterday">دوێنێ</option>
+                                <option value="week">هەفتەی ئەمڕۆ</option>
+                                <option value="month">مانگی ئەمڕۆ</option>
+                                <option value="all">هەموو کات</option>
+                            </select>
+                            <select id="historyPaymentFilter" style="padding: 10px; border-radius: var(--border-radius); border: 1px solid var(--gray-light);">
+                                <option value="all">هەموو جۆرەکان</option>
+                                <option value="cash">تەنها نەقدی</option>
+                                <option value="credit">تەنها قەرز</option>
+                                <option value="mixed">تەنها تێکەڵ</option>
+                            </select>
+                            <select id="historySyncFilter" style="padding: 10px; border-radius: var(--border-radius); border: 1px solid var(--gray-light);">
+                                <option value="all">هەموو</option>
+                                <option value="synced">سینک کراوە</option>
+                                <option value="pending">سینک نەکراوە</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="list-box">
+                        <div class="list-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--gray-light);">
+                            <h3 style="margin: 0;">لیستی فرۆشتنەکان</h3>
+                            <div>
+                                <button class="btn btn-primary btn-sm" id="refreshHistoryBtn">
+                                    <i class="fas fa-sync-alt"></i> نوێکردنەوە
+                                </button>
+                            </div>
+                        </div>
+                        <div class="history-list">
+                            <ul class="list-items" id="historyList">
+                                <!-- مێژووی فرۆشتن لێرە نمایش دەدرێن -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- بەشی قەرزەکان -->
+            <section id="debtsSection" class="content-section">
+                <h2 class="section-title">قەرزەکان</h2>
+                
+                <div class="debt-container">
+                    <div class="search-container">
+                        <div class="search-box">
+                            <input type="text" id="debtSearch" placeholder="گەڕان بەدوای کڕیار...">
+                            <i class="fas fa-search"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="list-box">
+                        <div class="list-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--gray-light);">
+                            <h3 style="margin: 0;">لیستی کڕیارە قەرزدارەکان</h3>
+                            <div>
+                                <button class="btn btn-primary btn-sm" id="refreshDebtsBtn">
+                                    <i class="fas fa-sync-alt"></i> نوێکردنەوە
+                                </button>
+                            </div>
+                        </div>
+                        <div class="debt-list">
+                            <ul class="list-items" id="debtsList">
+                                <!-- لیستی قەرزدارەکان لێرە نمایش دەدرێن -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- مۆدالی پرێنتکردنی فاکتوور -->
+    <div class="modal" id="printModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>فاکتووری فرۆشتن</h3>
+                <button class="modal-close" id="closePrintModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="invoice" id="invoiceContent">
+                    <div class="invoice-header">
+                        <div class="invoice-logo">کاشێر</div>
+                        <h2>فاکتووری فرۆشتن</h2>
+                        <p>کۆدی فاکتوورە: <span id="invoiceCode">F-2024-001</span></p>
+                        <p>بەروار: <span id="invoiceDate">٢٠٢٤/٠١/٠١</span></p>
+                        <p>کاشێر: <span id="invoiceCashier">کاشێر ١</span></p>
+                    </div>
+                    
+                    <div class="invoice-details">
+                        <div>
+                            <h4>زانیاری فرۆشەر:</h4>
+                            <p>سیستەمی کاشێری ئەلکترۆنیات</p>
+                            <p id="invoiceLocation">فرۆشگای سەرەکی</p>
+                            <p>بەروار: <span id="invoiceTime">١٢:٠٠</span></p>
+                        </div>
+                        
+                        <div>
+                            <h4>زانیاری کڕیار:</h4>
+                            <p id="invoiceCustomerName">کڕیاری نەناسراو</p>
+                            <p id="invoiceCustomerPhone">-</p>
+                            <p id="invoiceCustomerAddress">-</p>
+                        </div>
+                    </div>
+                    
+                    <table class="invoice-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>ناوی کاڵا</th>
+                                <th>یەکە</th>
+                                <th>بڕ</th>
+                                <th>نرخ</th>
+                                <th>کۆی گشتی</th>
+                            </tr>
+                        </thead>
+                        <tbody id="invoiceItems">
+                            <!-- کاڵاکانی فاکتوور -->
+                        </tbody>
+                    </table>
+                    
+                    <div class="invoice-total">
+                        <p><strong>کۆی گشتی:</strong> <span id="invoiceTotal">٠ دینار</span></p>
+                        <p><strong>شێوازی پارەدان:</strong> <span id="invoicePaymentType">نەقدی</span></p>
+                        <p><strong>بڕی نەقدی:</strong> <span id="invoiceCashAmount">٠ دینار</span></p>
+                        <p><strong>بڕی قەرز:</strong> <span id="invoiceCreditAmount">٠ دینار</span></p>
+                        <p><strong>قەرزی پێشوو:</strong> <span id="invoicePreviousDebt">٠ دینار</span></p>
+                        <p><strong>کۆی قەرزی نوێ:</strong> <span id="invoiceNewDebt">٠ دینار</span></p>
+                    </div>
+                    
+                    <div class="print-options">
+                        <button class="btn btn-warning" id="printSmallBtn">
+                            <i class="fas fa-print"></i> پرێنتی بچووک (٨٠ م م)
+                        </button>
+                        <button class="btn btn-primary" id="printA4Btn">
+                            <i class="fas fa-print"></i> پرێنتی A4
+                        </button>
+                        <button class="btn btn-danger" id="closeInvoiceBtn">
+                            <i class="fas fa-times"></i> داخستن
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- مۆدالی وردەکاری فاکتوور -->
+    <div class="modal" id="invoiceDetailModal">
+        <div class="modal-content" style="max-width: 1000px;">
+            <div class="modal-header">
+                <h3>وردەکاری فاکتوور</h3>
+                <button class="modal-close" id="closeInvoiceDetailModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="invoiceDetailContent">
+                    <!-- وردەکاری فاکتوور لێرە نمایش دەدرێت -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ڕێکخستنەکانی سیستم
+        const API_CONFIG = {
+            // لینکی سێرڤەری سەرەکی (لە وەشانی رێکدا دەبێت ڕاست بکرێتەوە)
+            MAIN_SERVER_URL: 'https://your-main-server.com/api',
+            // لینکی سێرڤەری کاشێر (لە وەشانی رێکدا دەبێت ڕاست بکرێتەوە)
+            CASHIER_SERVER_URL: 'https://your-cashier-server.com/api',
+            // کۆدی کاشێر (دەبێت تایبەت بێت بۆ هەر کاشێرێک)
+            CASHIER_ID: 'CASHIER_001',
+            // API Key بۆ پەیوەندیکردن
+            API_KEY: 'cashier-system-2024-key'
+        };
+
+        // داتای ناوخۆیی کاشێر
+        let cashierData = {
+            currentUser: null,
+            cashierLocation: null,
+            isOnline: true,
+            sales: [],
+            customers: [],
+            products: [],
+            pendingSync: [],
+            todaySales: [],
+            cart: [],
+            currentSale: null,
+            barcodeBuffer: '',
+            barcodeTimeout: null
+        };
+
+        // فەرمانی چوونەژوورەوە
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const location = document.getElementById('cashierLocation').value;
+            
+            if (username && password && location) {
+                // لۆجینی سادە (لە وەشانی رێکدا دەبێت پشکنینی رێگەپێدراو بکرێت)
+                if ((username === 'cashier1' && password === 'cashier123') || 
+                    (username === 'cashier2' && password === 'cashier123') ||
+                    (username === 'cashier3' && password === 'cashier123')) {
+                    
+                    cashierData.currentUser = username;
+                    cashierData.cashierLocation = location;
+                    
+                    // نیشاندانی پەڕەی سەرەکی
+                    document.getElementById('loginPage').style.display = 'none';
+                    document.getElementById('mainPage').style.display = 'block';
+                    
+                    // نوێکردنەوەی زانیاری بەکارهێنەر
+                    document.getElementById('currentUser').textContent = username;
+                    document.getElementById('currentLocation').textContent = location;
+                    
+                    // زیادکردنی داتای نموونەیی
+                    initializeSampleData();
+                    
+                    // دەستپێکردنی سیستم
+                    initializeSystem();
+                    
+                    // نیشاندانی ئاگاداری
+                    showNotification('بە سەرکەوتوویی چوویتە ژوورەوە!', 'success');
+                } else {
+                    showNotification('ناوی بەکارهێنەر یان وشەی نهێنی هەڵەە!', 'error');
+                }
+            } else {
+                showNotification('تکایە هەموو خانەکان پڕ بکەرەوە!', 'error');
+            }
+        });
+
+        // فەرمانی چوونەدەرەوە
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            // پشکنین ئەگەر فرۆشتنێک لە کار بێت
+            if (cashierData.cart.length > 0) {
+                if (!confirm('فرۆشتنێک لە کارە! دڵنیای لە چوونەدەرەوە؟')) {
+                    return;
+                }
+            }
+            
+            // پشکنین ئەگەر فرۆشتنێک سینک نەکراو هەیە
+            if (cashierData.pendingSync.length > 0) {
+                if (!confirm(`${cashierData.pendingSync.length} فرۆشتن سینک نەکراوە! دڵنیای لە چوونەدەرەوە؟`)) {
+                    return;
+                }
+            }
+            
+            cashierData.currentUser = null;
+            cashierData.cashierLocation = null;
+            cashierData.cart = [];
+            
+            document.getElementById('mainPage').style.display = 'none';
+            document.getElementById('loginPage').style.display = 'flex';
+            
+            // پاککردنەوەی خانەکانی چوونەژوورەوە
+            document.getElementById('username').value = 'cashier1';
+            document.getElementById('password').value = 'cashier123';
+            document.getElementById('cashierLocation').value = 'فرۆشگای سەرەکی';
+            
+            showNotification('بە سەرکەوتوویی چوویتە دەرەوە', 'info');
+        });
+
+        // فەرمانی سینک
+        document.getElementById('syncBtn').addEventListener('click', function() {
+            syncWithMainServer();
+        });
+
+        // دەستپێکردنی سیستەمی فرۆشتن
+        document.getElementById('startNewSaleBtn').addEventListener('click', function() {
+            showSection('sale');
+        });
+
+        // فەنکشنی نیشاندانی بەش
+        function showSection(sectionId) {
+            // لابردنی چالاکی لە هەموو بەشەکان
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // زیادکردنی چالاکی بۆ بەشەکە
+            const sectionElement = document.getElementById(sectionId + 'Section');
+            if (sectionElement) {
+                sectionElement.classList.add('active');
+            }
+            
+            // نوێکردنەوەی سەرناوی پەڕە
+            const pageTitle = document.getElementById('pageTitle');
+            const titles = {
+                'dashboard': 'داشبۆرد',
+                'sale': 'سیستەمی فرۆشتن',
+                'history': 'مێژووی فرۆشتن',
+                'debts': 'قەرزەکان'
+            };
+            
+            if (pageTitle && titles[sectionId]) {
+                pageTitle.textContent = titles[sectionId];
+            }
+            
+            // دەستپێکردنی سیستەمی فرۆشتن کاتێ بەشەکە پیشان دەدرێت
+            if (sectionId === 'sale') {
+                setTimeout(() => {
+                    initializeSaleSystem();
+                }, 100);
+            }
+            
+            // نوێکردنەوەی مێژوو کاتێ بەشەکە پیشان دەدرێت
+            if (sectionId === 'history') {
+                setTimeout(() => {
+                    updateHistoryDisplay();
+                }, 100);
+            }
+            
+            // نوێکردنەوەی قەرزەکان کاتێ بەشەکە پیشان دەدرێت
+            if (sectionId === 'debts') {
+                setTimeout(() => {
+                    updateDebtsDisplay();
+                }, 100);
+            }
+        }
+
+        // دەستپێکردنی سیستم
+        function initializeSystem() {
+            // چالاککردنی هەموو کارگێڕەکان
+            setupEventHandlers();
+            
+            // دەستپێکردنی سیستەمی بارکۆد
+            initializeBarcodeScanner();
+            
+            // پشکنینی پەیوەندی
+            checkConnectionStatus();
+            
+            // سینکی یەکەم
+            setTimeout(() => {
+                syncWithMainServer();
+            }, 2000);
+            
+            // نوێکردنەوەی داشبۆرد
+            updateDashboard();
+        }
+
+        // دەستپێکردنی سیستەمی بارکۆد
+        function initializeBarcodeScanner() {
+            document.addEventListener('keydown', function(e) {
+                // تەنها کەلیلی ئاسایی قبوڵ بکە
+                if (e.key.length === 1 && !e.ctrlKey && !e.altKey && !e.metaKey) {
+                    cashierData.barcodeBuffer += e.key;
+                    
+                    // پاککردنەوەی کاتی
+                    if (cashierData.barcodeTimeout) clearTimeout(cashierData.barcodeTimeout);
+                    
+                    cashierData.barcodeTimeout = setTimeout(function() {
+                        if (cashierData.barcodeBuffer.length >= 6) {
+                            processBarcode(cashierData.barcodeBuffer.trim());
+                        }
+                        cashierData.barcodeBuffer = '';
+                    }, 100);
+                }
+            });
+        }
+
+        // پرۆسەکردنی بارکۆد
+        function processBarcode(barcode) {
+            const product = cashierData.products.find(p => p.barcode === barcode);
+            
+            if (product) {
+                addProductToCart(product.id, 1);
+                updateCartDisplay();
+                
+                showNotification(`${product.name} زیاد کرا بۆ سەبەتە`, 'success');
+            } else {
+                showNotification('کاڵایەک بەم بارکۆدە نەدۆزرایەوە', 'error');
+            }
+        }
+
+        // دەستپێکردنی سیستەمی فرۆشتن
+        function initializeSaleSystem() {
+            // پاککردنەوەی سەبەتە
+            cashierData.cart = [];
+            
+            // نوێکردنەوەی نیشاندانی سەبەتە
+            updateCartDisplay();
+            
+            // چالاککردنی گەڕان
+            setupSearchHandlers();
+            
+            // چالاککردنی هەڵبژاردنی شێوازی پارەدان
+            setupPaymentHandlers();
+        }
+
+        // ڕێکخستنی کارگێڕەکانی گەڕان
+        function setupSearchHandlers() {
+            // گەڕان بۆ کاڵا
+            const productSearch = document.getElementById('productSearch');
+            if (productSearch) {
+                productSearch.addEventListener('input', function() {
+                    const query = this.value.toLowerCase();
+                    const suggestions = document.getElementById('productSuggestions');
+                    
+                    if (!suggestions) return;
+                    
+                    if (query.length < 1) {
+                        suggestions.style.display = 'none';
+                        return;
+                    }
+                    
+                    const filteredProducts = cashierData.products.filter(p => 
+                        p.name.toLowerCase().includes(query) || 
+                        (p.barcode && p.barcode.includes(query))
+                    );
+                    
+                    suggestions.innerHTML = '';
+                    
+                    if (filteredProducts.length === 0) {
+                        suggestions.style.display = 'none';
+                        return;
+                    }
+                    
+                    filteredProducts.forEach(product => {
+                        const div = document.createElement('div');
+                        div.className = 'suggestion-item';
+                        
+                        div.innerHTML = `
+                            <div style="display: flex; align-items: center;">
+                                <div style="flex: 1;">
+                                    <div><strong>${product.name}</strong></div>
+                                    <div style="font-size: 0.9rem; color: var(--gray);">
+                                        ${product.salePrice.toLocaleString()} دینار | بەردەست: ${product.stock} ${getUnitName(product.unit)}
+                                    </div>
+                                    <div style="font-size: 0.8rem; color: var(--info);">
+                                        بارکۆد: ${product.barcode}
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        
+                        div.addEventListener('click', function() {
+                            addProductToCart(product.id, 1);
+                            productSearch.value = '';
+                            suggestions.style.display = 'none';
+                            updateCartDisplay();
+                        });
+                        
+                        suggestions.appendChild(div);
+                    });
+                    
+                    suggestions.style.display = 'block';
+                });
+            }
+            
+            // گەڕان بۆ کڕیار
+            const customerSearch = document.getElementById('customerSearch');
+            if (customerSearch) {
+                customerSearch.addEventListener('input', function() {
+                    const query = this.value.toLowerCase();
+                    const suggestions = document.getElementById('customerSuggestions');
+                    
+                    if (!suggestions) return;
+                    
+                    if (query.length < 1) {
+                        suggestions.style.display = 'none';
+                        return;
+                    }
+                    
+                    const filteredCustomers = cashierData.customers.filter(c => 
+                        c.name.toLowerCase().includes(query) ||
+                        c.phone.includes(query)
+                    );
+                    
+                    suggestions.innerHTML = '';
+                    
+                    if (filteredCustomers.length === 0) {
+                        suggestions.style.display = 'none';
+                        return;
+                    }
+                    
+                    filteredCustomers.forEach(customer => {
+                        const div = document.createElement('div');
+                        div.className = 'suggestion-item';
+                        div.innerHTML = `
+                            <div><strong>${customer.name}</strong></div>
+                            <div style="font-size: 0.9rem; color: var(--gray);">
+                                ${customer.phone} | <span class="${customer.debt > 0 ? 'debt-positive' : 'debt-zero'}">${customer.debt > 0 ? customer.debt.toLocaleString() + ' دینار قەرز' : 'بێ قەرز'}</span>
+                            </div>
+                        `;
+                        
+                        div.addEventListener('click', function() {
+                            cashierData.currentSale = {
+                                ...cashierData.currentSale,
+                                customer: customer
+                            };
+                            document.getElementById('customerSearch').value = customer.name;
+                            document.getElementById('selectedCustomerName').textContent = customer.name;
+                            document.getElementById('selectedCustomerDebt').textContent = customer.debt.toLocaleString() + ' دینار';
+                            document.getElementById('selectedCustomerInfo').style.display = 'block';
+                            suggestions.style.display = 'none';
+                        });
+                        
+                        suggestions.appendChild(div);
+                    });
+                    
+                    suggestions.style.display = 'block';
+                });
+            }
+        }
+
+        // ڕێکخستنی کارگێڕەکانی پارەدان
+        function setupPaymentHandlers() {
+            // هەڵبژاردنی شێوازی پارەدان
+            document.querySelectorAll('.payment-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.payment-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    this.classList.add('selected');
+                    const paymentType = this.getAttribute('data-payment');
+                    
+                    const customerSelection = document.getElementById('customerSelection');
+                    const mixedPaymentSection = document.getElementById('mixedPaymentSection');
+                    
+                    if (customerSelection) {
+                        customerSelection.style.display = paymentType === 'credit' ? 'block' : 'none';
+                    }
+                    
+                    if (mixedPaymentSection) {
+                        mixedPaymentSection.style.display = paymentType === 'mixed' ? 'block' : 'none';
+                    }
+                    
+                    if (paymentType === 'mixed') {
+                        updateMixedPayment();
+                    }
+                    
+                    if (paymentType !== 'credit' && paymentType !== 'mixed') {
+                        cashierData.currentSale = {
+                            ...cashierData.currentSale,
+                            customer: null
+                        };
+                    }
+                });
+            });
+            
+            // نوێکردنەوەی پارەدانی تێکەڵ
+            const cashAmountInput = document.getElementById('cashAmount');
+            if (cashAmountInput) {
+                cashAmountInput.addEventListener('input', updateMixedPayment);
+            }
+            
+            // گەڕان بۆ کڕیار بۆ پارەدانی تێکەڵ
+            const mixedCustomerSearch = document.getElementById('mixedCustomerSearch');
+            if (mixedCustomerSearch) {
+                mixedCustomerSearch.addEventListener('input', function() {
+                    const query = this.value.toLowerCase();
+                    const suggestions = document.getElementById('mixedCustomerSuggestions');
+                    
+                    if (!suggestions) return;
+                    
+                    if (query.length < 1) {
+                        suggestions.style.display = 'none';
+                        return;
+                    }
+                    
+                    const filteredCustomers = cashierData.customers.filter(c => 
+                        c.name.toLowerCase().includes(query) ||
+                        c.phone.includes(query)
+                    );
+                    
+                    suggestions.innerHTML = '';
+                    
+                    if (filteredCustomers.length === 0) {
+                        suggestions.style.display = 'none';
+                        return;
+                    }
+                    
+                    filteredCustomers.forEach(customer => {
+                        const div = document.createElement('div');
+                        div.className = 'suggestion-item';
+                        div.innerHTML = `
+                            <div><strong>${customer.name}</strong></div>
+                            <div style="font-size: 0.9rem; color: var(--gray);">
+                                ${customer.phone} | <span class="${customer.debt > 0 ? 'debt-positive' : 'debt-zero'}">${customer.debt > 0 ? customer.debt.toLocaleString() + ' دینار قەرز' : 'بێ قەرز'}</span>
+                            </div>
+                        `;
+                        
+                        div.addEventListener('click', function() {
+                            cashierData.currentSale = {
+                                ...cashierData.currentSale,
+                                customer: customer
+                            };
+                            document.getElementById('mixedCustomerSearch').value = customer.name;
+                            suggestions.style.display = 'none';
+                        });
+                        
+                        suggestions.appendChild(div);
+                    });
+                    
+                    suggestions.style.display = 'block';
+                });
+            }
+        }
+
+        // نوێکردنەوەی پارەدانی تێکەڵ
+        function updateMixedPayment() {
+            const cashAmountInput = document.getElementById('cashAmount');
+            const creditAmountInput = document.getElementById('creditAmount');
+            const cartTotal = calculateCartTotal();
+            
+            if (cashAmountInput && creditAmountInput) {
+                const cashAmount = parseInt(cashAmountInput.value) || 0;
+                const creditAmount = Math.max(0, cartTotal - cashAmount);
+                
+                creditAmountInput.value = creditAmount;
+            }
+        }
+
+        // زیادکردنی کاڵا بۆ سەبەتە
+        function addProductToCart(productId, quantity = 1) {
+            const product = cashierData.products.find(p => p.id === productId);
+            if (!product) return false;
+            
+            // پشکنینی بەردەستبوونی کاڵا
+            if (product.stock < quantity) {
+                showNotification(`تەنها ${product.stock} ${getUnitName(product.unit)} بەردەستە!`, 'error');
+                return false;
+            }
+            
+            const price = product.salePrice;
+            const unit = product.unit;
+            
+            // پشکنینی ئەگەر کاڵاکە پێشتر لە سەبەتەدا بوو
+            const existingIndex = cashierData.cart.findIndex(item => 
+                item.id === productId && 
+                item.price === price && 
+                item.unit === unit
+            );
+            
+            if (existingIndex !== -1) {
+                // زیادکردنی بە بڕی نوێ
+                cashierData.cart[existingIndex].quantity += quantity;
+            } else {
+                // زیادکردنی کاڵای نوێ
+                const cartItem = {
+                    id: productId,
+                    name: product.name,
+                    price: price,
+                    quantity: quantity,
+                    unit: unit,
+                    barcode: product.barcode
+                };
+                
+                cashierData.cart.push(cartItem);
+            }
+            
+            updateCartDisplay();
+            return true;
+        }
+
+        // نوێکردنەوەی نیشاندانی سەبەتە
+        function updateCartDisplay() {
+            const cartItemsContainer = document.getElementById('cartItemsContainer');
+            const cartTotal = document.getElementById('cartTotal');
+            const cartSummary = document.getElementById('cartSummary');
+            
+            if (!cartItemsContainer || !cartTotal || !cartSummary) return;
+            
+            cartItemsContainer.innerHTML = '';
+            
+            if (cashierData.cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: var(--gray);">
+                        <i class="fas fa-shopping-cart fa-3x" style="margin-bottom: 15px;"></i>
+                        <p>سەبەتە بەتاڵە</p>
+                        <p style="font-size: 0.9rem;">کاڵایەک زیاد بکە یان بارکۆدێک بخوێنەرەوە</p>
+                    </div>
+                `;
+                
+                cartTotal.textContent = '٠ دینار';
+                cartSummary.innerHTML = '٠ کاڵا | ٠ دینار';
+                return;
+            }
+            
+            let total = 0;
+            let totalItems = 0;
+            
+            cashierData.cart.forEach((item, index) => {
+                const product = cashierData.products.find(p => p.id === item.id);
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                totalItems += item.quantity;
+                
+                const div = document.createElement('div');
+                div.className = 'cart-item';
+                div.innerHTML = `
+                    <div style="display: flex; align-items: center; flex: 1;">
+                        <div style="flex: 1;">
+                            <div style="font-weight: 500; font-size: 1.1rem;">${item.name}</div>
+                            <div style="font-size: 0.9rem; color: var(--gray); margin-top: 5px;">
+                                بارکۆد: ${item.barcode}
+                            </div>
+                            <div style="display: flex; align-items: center; margin-top: 10px; gap: 10px;">
+                                <div style="display: flex; align-items: center; background-color: var(--gray-light); border-radius: 5px; padding: 2px 5px;">
+                                    <button class="btn-quantity" onclick="updateCartItemQuantity(${index}, -1)" style="border: none; background: none; padding: 5px 10px; cursor: pointer;">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <input type="number" value="${item.quantity}" min="1" max="${product ? product.stock : 999}" 
+                                        style="width: 50px; text-align: center; border: none; background: none;" 
+                                        onchange="updateCartItemQuantity(${index}, 0, this.value)">
+                                    <button class="btn-quantity" onclick="updateCartItemQuantity(${index}, 1)" style="border: none; background: none; padding: 5px 10px; cursor: pointer;">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                                <div style="color: var(--gray);">${getUnitName(item.unit)}</div>
+                                <div style="margin-right: auto; color: var(--primary); font-weight: bold;">
+                                    ${item.price.toLocaleString()} دینار
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align: left;">
+                        <div style="font-size: 1.2rem; font-weight: bold; color: var(--primary); margin-bottom: 10px;">
+                            ${itemTotal.toLocaleString()} دینار
+                        </div>
+                        <div style="display: flex; gap: 5px;">
+                            <button class="btn btn-danger btn-sm" onclick="removeFromCart(${index})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                cartItemsContainer.appendChild(div);
+            });
+            
+            cartTotal.textContent = total.toLocaleString() + ' دینار';
+            cartSummary.innerHTML = `${totalItems} کاڵا | ${total.toLocaleString()} دینار`;
+            
+            // نوێکردنەوەی پارەدانی تێکەڵ ئەگەر چالاک بێت
+            updateMixedPayment();
+        }
+
+        // هەژمارکردنی کۆی سەبەتە
+        function calculateCartTotal() {
+            return cashierData.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        }
+
+        // نوێکردنەوەی بڕی کاڵا لە سەبەتە
+        window.updateCartItemQuantity = function(index, change, newValue = null) {
+            if (index < 0 || index >= cashierData.cart.length) return;
+            
+            const product = cashierData.products.find(p => p.id === cashierData.cart[index].id);
+            if (!product) return;
+            
+            let newQuantity;
+            
+            if (newValue !== null) {
+                newQuantity = parseInt(newValue) || 1;
+            } else {
+                newQuantity = cashierData.cart[index].quantity + change;
+            }
+            
+            // پشکنینی بەردەستبوون
+            if (newQuantity < 1) {
+                newQuantity = 1;
+            }
+            
+            if (newQuantity > product.stock) {
+                showNotification(`تەنها ${product.stock} ${getUnitName(cashierData.cart[index].unit)} بەردەستە!`, 'error');
+                return;
+            }
+            
+            cashierData.cart[index].quantity = newQuantity;
+            updateCartDisplay();
+        };
+
+        // سڕینەوەی کاڵا لە سەبەتە
+        window.removeFromCart = function(index) {
+            if (index >= 0 && index < cashierData.cart.length) {
+                cashierData.cart.splice(index, 1);
+                updateCartDisplay();
+            }
+        };
+
+        // فەرمانی سڕینەوەی هەموو سەبەتە
+        document.getElementById('clearCartBtn')?.addEventListener('click', function() {
+            if (cashierData.cart.length > 0) {
+                if (confirm('دڵنیای لە سڕینەوەی هەموو کاڵاکانی سەبەتە؟')) {
+                    cashierData.cart = [];
+                    cashierData.currentSale = null;
+                    updateCartDisplay();
+                }
+            }
+        });
+
+        // فەرمانی پرێنتکردنی فاکتوور
+        document.getElementById('printInvoiceBtn')?.addEventListener('click', function() {
+            generateInvoice();
+        });
+
+        // فەرمانی تەواوکردنی فرۆشتن
+        document.getElementById('completeSaleBtn')?.addEventListener('click', function() {
+            completeSale();
+        });
+
+        // دروستکردنی فاکتوور
+        function generateInvoice() {
+            if (cashierData.cart.length === 0) {
+                showNotification('سەبەتە بەتاڵە!', 'error');
+                return;
+            }
+            
+            const paymentType = document.querySelector('.payment-option.selected')?.getAttribute('data-payment') || 'cash';
+            
+            if ((paymentType === 'credit' || paymentType === 'mixed') && !cashierData.currentSale?.customer) {
+                showNotification('تکایە کڕیارێک هەڵبژێرە بۆ فرۆشتن بە قەرز', 'error');
+                return;
+            }
+            
+            // دروستکردنی مۆدالی پرێنت
+            const printModal = document.getElementById('printModal');
+            if (!printModal) return;
+            
+            const invoiceCode = `F-${new Date().getFullYear()}-${cashierData.sales.length + 1}`;
+            const now = new Date();
+            const dateStr = `${now.getFullYear()}/${now.getMonth() + 1}/${now.getDate()}`;
+            const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+            
+            // نوێکردنەوەی زانیاری فاکتوور
+            document.getElementById('invoiceCode').textContent = invoiceCode;
+            document.getElementById('invoiceDate').textContent = dateStr;
+            document.getElementById('invoiceTime').textContent = timeStr;
+            document.getElementById('invoiceCashier').textContent = cashierData.currentUser;
+            document.getElementById('invoiceLocation').textContent = cashierData.cashierLocation;
+            
+            // نوێکردنەوەی زانیاری کڕیار
+            const customer = cashierData.currentSale?.customer;
+            if (customer) {
+                document.getElementById('invoiceCustomerName').textContent = customer.name;
+                document.getElementById('invoiceCustomerPhone').textContent = customer.phone || '-';
+                document.getElementById('invoiceCustomerAddress').textContent = customer.address || '-';
+            } else {
+                document.getElementById('invoiceCustomerName').textContent = 'کڕیاری نەناسراو';
+                document.getElementById('invoiceCustomerPhone').textContent = '-';
+                document.getElementById('invoiceCustomerAddress').textContent = '-';
+            }
+            
+            // نوێکردنەوەی کاڵاکانی فاکتوور
+            const invoiceItems = document.getElementById('invoiceItems');
+            if (invoiceItems) {
+                invoiceItems.innerHTML = '';
+                
+                let total = 0;
+                cashierData.cart.forEach((item, index) => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${item.name}</td>
+                        <td>${getUnitName(item.unit)}</td>
+                        <td>${item.quantity}</td>
+                        <td>${item.price.toLocaleString()} دینار</td>
+                        <td>${itemTotal.toLocaleString()} دینار</td>
+                    `;
+                    invoiceItems.appendChild(tr);
+                });
+                
+                // نوێکردنەوەی کۆی گشتی و قەرزەکان
+                const previousDebt = customer ? customer.debt : 0;
+                
+                let cashAmount = 0;
+                let creditAmount = 0;
+                
+                if (paymentType === 'cash') {
+                    cashAmount = total;
+                    creditAmount = 0;
+                } else if (paymentType === 'credit') {
+                    cashAmount = 0;
+                    creditAmount = total;
+                } else if (paymentType === 'mixed') {
+                    const cashAmountInput = document.getElementById('cashAmount');
+                    cashAmount = parseInt(cashAmountInput.value) || 0;
+                    creditAmount = Math.max(0, total - cashAmount);
+                }
+                
+                const newDebt = previousDebt + creditAmount;
+                
+                document.getElementById('invoiceTotal').textContent = `${total.toLocaleString()} دینار`;
+                document.getElementById('invoicePaymentType').textContent = 
+                    paymentType === 'cash' ? 'نەقدی' : 
+                    paymentType === 'credit' ? 'قەرز' : 'تێکەڵ';
+                document.getElementById('invoiceCashAmount').textContent = `${cashAmount.toLocaleString()} دینار`;
+                document.getElementById('invoiceCreditAmount').textContent = `${creditAmount.toLocaleString()} دینار`;
+                document.getElementById('invoicePreviousDebt').textContent = `${previousDebt.toLocaleString()} دینار`;
+                document.getElementById('invoiceNewDebt').textContent = `${newDebt.toLocaleString()} دینار`;
+            }
+            
+            // نیشاندانی مۆدال
+            printModal.classList.add('active');
+        }
+
+        // تەواوکردنی فرۆشتن
+        function completeSale() {
+            if (cashierData.cart.length === 0) {
+                showNotification('سەبەتە بەتاڵە!', 'error');
+                return;
+            }
+            
+            const paymentType = document.querySelector('.payment-option.selected')?.getAttribute('data-payment') || 'cash';
+            
+            if ((paymentType === 'credit' || paymentType === 'mixed') && !cashierData.currentSale?.customer) {
+                showNotification('تکایە کڕیارێک هەڵبژێرە بۆ فرۆشتن بە قەرز', 'error');
+                return;
+            }
+            
+            const total = calculateCartTotal();
+            const invoiceCode = `F-${new Date().getFullYear()}-${cashierData.sales.length + 1}`;
+            
+            // دیاریکردنی بڕی نەقدی و قەرز
+            let cashAmount = 0;
+            let creditAmount = 0;
+            
+            if (paymentType === 'cash') {
+                cashAmount = total;
+                creditAmount = 0;
+            } else if (paymentType === 'credit') {
+                cashAmount = 0;
+                creditAmount = total;
+            } else if (paymentType === 'mixed') {
+                const cashAmountInput = document.getElementById('cashAmount');
+                cashAmount = parseInt(cashAmountInput.value) || 0;
+                creditAmount = Math.max(0, total - cashAmount);
+            }
+            
+            // دروستکردنی فاکتووری نوێ
+            const newSale = {
+                id: cashierData.sales.length + 1,
+                code: invoiceCode,
+                customer: cashierData.currentSale?.customer || null,
+                date: new Date().toISOString().split('T')[0],
+                time: new Date().toLocaleTimeString(),
+                total: total,
+                cashAmount: cashAmount,
+                creditAmount: creditAmount,
+                payment: paymentType,
+                items: cashierData.cart.map(item => ({
+                    name: item.name,
+                    quantity: item.quantity,
+                    unit: item.unit,
+                    price: item.price,
+                    total: item.price * item.quantity,
+                    barcode: item.barcode
+                })),
+                cashier: cashierData.currentUser,
+                location: cashierData.cashierLocation,
+                timestamp: new Date().toISOString(),
+                synced: false,
+                syncAttempts: 0
+            };
+            
+            // زیادکردنی بە لیستی فرۆشتنەکان
+            cashierData.sales.unshift(newSale);
+            cashierData.todaySales.unshift(newSale);
+            
+            // زیادکردنی بە لیستی سینک نەکراوەکان
+            cashierData.pendingSync.push(newSale);
+            
+            // کەمکردنەوەی کاڵا لە بەردەستایی
+            cashierData.cart.forEach(item => {
+                const product = cashierData.products.find(p => p.id === item.id);
+                if (product) {
+                    product.stock -= item.quantity;
+                    if (product.stock < 0) product.stock = 0;
+                }
+            });
+            
+            // زیادکردنی قەرز بۆ کڕیار
+            if (cashierData.currentSale?.customer && creditAmount > 0) {
+                const customer = cashierData.customers.find(c => c.id === cashierData.currentSale.customer.id);
+                if (customer) {
+                    customer.debt += creditAmount;
+                }
+            }
+            
+            // پاککردنەوەی سەبەتە
+            cashierData.cart = [];
+            cashierData.currentSale = null;
+            
+            // نوێکردنەوەی نیشاندانەکان
+            updateCartDisplay();
+            updateDashboard();
+            
+            // نیشاندانی ئاگاداری
+            showNotification(`فرۆشتنەکە بە سەرکەوتوویی تەواو بوو! کۆدی فاکتوورە: ${invoiceCode}`, 'success');
+            
+            // داخستنی مۆدالی پرێنت
+            const printModal = document.getElementById('printModal');
+            if (printModal) printModal.classList.remove('active');
+            
+            // سینککردنی خۆکار
+            setTimeout(() => {
+                syncWithMainServer();
+            }, 1000);
+        }
+
+        // نوێکردنەوەی داشبۆرد
+        function updateDashboard() {
+            // ژمارەی فرۆشتنەکانی ئەمڕۆ
+            const todaySalesCount = document.getElementById('todaySalesCount');
+            const todaySalesTotal = document.getElementById('todaySalesTotal');
+            
+            if (todaySalesCount && todaySalesTotal) {
+                const today = new Date().toISOString().split('T')[0];
+                const todaySales = cashierData.sales.filter(sale => sale.date === today);
+                const todayTotal = todaySales.reduce((sum, sale) => sum + sale.total, 0);
+                
+                todaySalesCount.textContent = todaySales.length;
+                todaySalesTotal.textContent = todayTotal.toLocaleString() + ' دینار';
+            }
+            
+            // کۆی فرۆشتنە نەقدییەکان
+            const cashSalesTotal = document.getElementById('cashSalesTotal');
+            if (cashSalesTotal) {
+                const today = new Date().toISOString().split('T')[0];
+                const todayCashSales = cashierData.sales.filter(sale => 
+                    sale.date === today && (sale.payment === 'cash' || sale.payment === 'mixed')
+                );
+                const cashTotal = todayCashSales.reduce((sum, sale) => sum + sale.cashAmount, 0);
+                
+                cashSalesTotal.textContent = cashTotal.toLocaleString() + ' دینار';
+            }
+            
+            // کۆی فرۆشتنە قەرزییەکان
+            const creditSalesTotal = document.getElementById('creditSalesTotal');
+            if (creditSalesTotal) {
+                const today = new Date().toISOString().split('T')[0];
+                const todayCreditSales = cashierData.sales.filter(sale => 
+                    sale.date === today && (sale.payment === 'credit' || sale.payment === 'mixed')
+                );
+                const creditTotal = todayCreditSales.reduce((sum, sale) => sum + sale.creditAmount, 0);
+                
+                creditSalesTotal.textContent = creditTotal.toLocaleString() + ' دینار';
+            }
+            
+            // فرۆشتنە سینک نەکراوەکان
+            const pendingSyncCount = document.getElementById('pendingSyncCount');
+            if (pendingSyncCount) {
+                pendingSyncCount.textContent = cashierData.pendingSync.length;
+            }
+            
+            // کڕیارە قەرزدارەکان
+            const debtorsCount = document.getElementById('debtorsCount');
+            const totalDebtAmount = document.getElementById('totalDebtAmount');
+            if (debtorsCount && totalDebtAmount) {
+                const debtors = cashierData.customers.filter(customer => customer.debt > 0);
+                const totalDebt = debtors.reduce((sum, customer) => sum + customer.debt, 0);
+                
+                debtorsCount.textContent = debtors.length;
+                totalDebtAmount.textContent = totalDebt.toLocaleString();
+            }
+            
+            // کۆی نەقدی ئەمڕۆ
+            const todayCashTotal = document.getElementById('todayCashTotal');
+            if (todayCashTotal) {
+                const today = new Date().toISOString().split('T')[0];
+                const todaySales = cashierData.sales.filter(sale => sale.date === today);
+                const todayTotal = todaySales.reduce((sum, sale) => sum + sale.total, 0);
+                
+                todayCashTotal.textContent = todayTotal.toLocaleString() + ' دینار';
+            }
+        }
+
+        // نوێکردنەوەی مێژووی فرۆشتن
+        function updateHistoryDisplay() {
+            const historyList = document.getElementById('historyList');
+            if (!historyList) return;
+            
+            historyList.innerHTML = '';
+            
+            if (cashierData.sales.length === 0) {
+                historyList.innerHTML = '<li class="list-item">هیچ فرۆشتنی تۆمارنەکراوە</li>';
+                return;
+            }
+            
+            // فیلتەرکردن
+            const dateFilter = document.getElementById('historyDateFilter')?.value || 'today';
+            const paymentFilter = document.getElementById('historyPaymentFilter')?.value || 'all';
+            const syncFilter = document.getElementById('historySyncFilter')?.value || 'all';
+            
+            const today = new Date().toISOString().split('T')[0];
+            const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+            
+            let filteredSales = cashierData.sales.filter(sale => {
+                // فیلتەری بەروار
+                if (dateFilter === 'today' && sale.date !== today) return false;
+                if (dateFilter === 'yesterday' && sale.date !== yesterday) return false;
+                if (dateFilter === 'week') {
+                    const saleDate = new Date(sale.date);
+                    const todayDate = new Date();
+                    const daysDiff = Math.floor((todayDate - saleDate) / (1000 * 60 * 60 * 24));
+                    if (daysDiff > 7) return false;
+                }
+                if (dateFilter === 'month') {
+                    const saleDate = new Date(sale.date);
+                    const todayDate = new Date();
+                    if (saleDate.getMonth() !== todayDate.getMonth() || saleDate.getFullYear() !== todayDate.getFullYear()) {
+                        return false;
+                    }
+                }
+                
+                // فیلتەری جۆری پارەدان
+                if (paymentFilter !== 'all' && sale.payment !== paymentFilter) return false;
+                
+                // فیلتەری سینک
+                if (syncFilter === 'synced' && !sale.synced) return false;
+                if (syncFilter === 'pending' && sale.synced) return false;
+                
+                return true;
+            });
+            
+            filteredSales.forEach(sale => {
+                const li = document.createElement('li');
+                li.className = 'list-item';
+                li.innerHTML = `
+                    <div>
+                        <div class="item-name">${sale.code} - ${sale.customer?.name || 'کڕیاری نەناسراو'}</div>
+                        <div style="font-size: 0.9rem; color: var(--gray);">
+                            ${sale.date} ${sale.time} - 
+                            ${sale.payment === 'cash' ? 'نەقدی' : sale.payment === 'credit' ? 'قەرز' : 'تێکەڵ'} - 
+                            ${sale.synced ? '<span style="color: var(--success);">سینک کراوە</span>' : '<span style="color: var(--danger);">سینک نەکراوە</span>'}
+                        </div>
+                        <div style="font-size: 0.9rem; color: var(--info);">
+                            ${sale.items.length} کاڵا - ${sale.cashier} - ${sale.location}
+                        </div>
+                    </div>
+                    <div>
+                        <div class="item-value">${sale.total.toLocaleString()} دینار</div>
+                        <div style="margin-top: 10px; display: flex; gap: 5px;">
+                            <button class="btn btn-info btn-sm" onclick="viewSaleDetails(${sale.id})">
+                                <i class="fas fa-eye"></i> بینین
+                            </button>
+                            <button class="btn btn-warning btn-sm" onclick="printSaleInvoice(${sale.id})">
+                                <i class="fas fa-print"></i> پرێنت
+                            </button>
+                            ${!sale.synced ? `
+                                <button class="btn btn-success btn-sm" onclick="syncSingleSale(${sale.id})">
+                                    <i class="fas fa-sync-alt"></i> سینک
+                                </button>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+                historyList.appendChild(li);
+            });
+        }
+
+        // نوێکردنەوەی لیستی قەرزەکان
+        function updateDebtsDisplay() {
+            const debtsList = document.getElementById('debtsList');
+            if (!debtsList) return;
+            
+            debtsList.innerHTML = '';
+            
+            const debtors = cashierData.customers.filter(customer => customer.debt > 0);
+            
+            if (debtors.length === 0) {
+                debtsList.innerHTML = '<li class="list-item">هیچ کڕیارێک قەرزدار نییە</li>';
+                return;
+            }
+            
+            debtors.forEach(customer => {
+                const li = document.createElement('li');
+                li.className = 'list-item';
+                li.innerHTML = `
+                    <div>
+                        <div class="item-name">${customer.name}</div>
+                        <div style="font-size: 0.9rem; color: var(--gray);">
+                            ${customer.phone} | ${customer.address || 'ناونیشان نییە'}
+                        </div>
+                        <div style="font-size: 0.9rem; color: var(--info);">
+                            کۆتا فرۆشتن: ${customer.lastPurchase || 'نییە'}
+                        </div>
+                    </div>
+                    <div>
+                        <div class="item-value debt-positive">${customer.debt.toLocaleString()} دینار</div>
+                        <div style="margin-top: 10px; display: flex; gap: 5px;">
+                            <button class="btn btn-info btn-sm" onclick="viewCustomerDetails(${customer.id})">
+                                <i class="fas fa-eye"></i> بینین
+                            </button>
+                            <button class="btn btn-success btn-sm" onclick="addPayment(${customer.id})">
+                                <i class="fas fa-hand-holding-usd"></i> پارەواسڵ
+                            </button>
+                        </div>
+                    </div>
+                `;
+                debtsList.appendChild(li);
+            });
+        }
+
+        // سینککردن لەگەڵ سێرڤەری سەرەکی
+        async function syncWithMainServer() {
+            if (cashierData.pendingSync.length === 0) {
+                showNotification('هیچ فرۆشتنی سینک نەکراو نییە', 'info');
+                return;
+            }
+            
+            // نیشاندانی ئاگاداری سینک
+            const syncBtn = document.getElementById('syncBtn');
+            const syncStatus = document.getElementById('syncStatus');
+            
+            if (syncBtn) {
+                syncBtn.classList.add('syncing');
+                syncBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> سینک دەکرێت...';
+                syncBtn.disabled = true;
+            }
+            
+            if (syncStatus) {
+                syncStatus.className = 'sync-status syncing';
+                syncStatus.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i> سینک دەکرێت';
+            }
+            
+            showNotification(`سینککردنی ${cashierData.pendingSync.length} فرۆشتن...`, 'info');
+            
+            try {
+                // لە وەشانی رێکدا، ئەمە دەبێت API رەستەکە بێت
+                // بۆ نموونە: POST بۆ سێرڤەری سەرەکی
+                // const response = await fetch(`${API_CONFIG.MAIN_SERVER_URL}/sales/sync`, {
+                //     method: 'POST',
+                //     headers: {
+                //         'Content-Type': 'application/json',
+                //         'Authorization': `Bearer ${API_CONFIG.API_KEY}`,
+                //         'X-Cashier-ID': API_CONFIG.CASHIER_ID
+                //     },
+                //     body: JSON.stringify({
+                //         sales: cashierData.pendingSync,
+                //         cashier: cashierData.currentUser,
+                //         location: cashierData.cashierLocation,
+                //         timestamp: new Date().toISOString()
+                //     })
+                // });
+                
+                // بۆ نموونە، وا دابنێ سینک سەرکەوتوو بووە
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                // نیشانەدان بە فرۆشتنەکان وەک سینک کراو
+                cashierData.pendingSync.forEach(sale => {
+                    sale.synced = true;
+                    sale.syncDate = new Date().toISOString();
+                });
+                
+                // پاککردنەوەی لیستی سینک نەکراوەکان
+                cashierData.pendingSync = [];
+                
+                // نوێکردنەوەی نیشاندانەکان
+                updateDashboard();
+                updateHistoryDisplay();
+                
+                // نیشاندانی ئاگاداری
+                showNotification('هەموو فرۆشتنەکان بە سەرکەوتوویی سینک کران!', 'success');
+                
+            } catch (error) {
+                console.error('هەڵە لە سینککردن:', error);
+                showNotification('هەڵە لە سینککردن! دووبارە هەوڵ بدەرەوە', 'error');
+                
+                // زیادکردنی ژمارەی هەوڵەکان
+                cashierData.pendingSync.forEach(sale => {
+                    sale.syncAttempts = (sale.syncAttempts || 0) + 1;
+                });
+            } finally {
+                // گەڕاندنەوەی دووگمەی سینک
+                if (syncBtn) {
+                    syncBtn.classList.remove('syncing');
+                    syncBtn.innerHTML = '<i class="fas fa-sync-alt"></i> سینک';
+                    syncBtn.disabled = false;
+                }
+                
+                if (syncStatus) {
+                    syncStatus.className = cashierData.isOnline ? 'sync-status online' : 'sync-status offline';
+                    syncStatus.innerHTML = cashierData.isOnline ? 
+                        '<i class="fas fa-wifi"></i> پەیوەندی' : 
+                        '<i class="fas fa-wifi-slash"></i> نەبەستراو';
+                }
+            }
+        }
+
+        // سینککردنی فرۆشتنی تاک
+        function syncSingleSale(saleId) {
+            const sale = cashierData.sales.find(s => s.id === saleId);
+            if (!sale) return;
+            
+            // زیادکردنی بە لیستی سینک نەکراوەکان ئەگەر نییە
+            if (!cashierData.pendingSync.includes(sale)) {
+                cashierData.pendingSync.push(sale);
+            }
+            
+            // سینککردن
+            syncWithMainServer();
+        }
+
+        // پشکنینی پەیوەندی
+        function checkConnectionStatus() {
+            // لە وەشانی رێکدا، ئەمە دەبێت پشکنینی رەستەی API بێت
+            // بۆ نموونە: پشکنینی پەیوەندی لەگەڵ سێرڤەری سەرەکی
+            
+            cashierData.isOnline = Math.random() > 0.1; // 90% ی هەلی ئۆنلاین
+            
+            const syncStatus = document.getElementById('syncStatus');
+            if (syncStatus) {
+                syncStatus.className = cashierData.isOnline ? 'sync-status online' : 'sync-status offline';
+                syncStatus.innerHTML = cashierData.isOnline ? 
+                    '<i class="fas fa-wifi"></i> پەیوەندی' : 
+                    '<i class="fas fa-wifi-slash"></i> نەبەستراو';
+            }
+            
+            // خۆکارانە پشکنینی پەیوەندی هەر ٣٠ چرکە جارێک
+            setTimeout(checkConnectionStatus, 30000);
+        }
+
+        // فەنکشنی وەرگرتنی ناوی یەکە
+        function getUnitName(unit) {
+            const unitNames = {
+                'piece': 'پارچە',
+                'carton': 'کارتۆن',
+                'unit': 'دانە',
+                'meter': 'مەتر',
+                'kg': 'کیلۆ',
+                'box': 'بۆکس',
+                'pack': 'پاکەت'
+            };
+            return unitNames[unit] || unit;
+        }
+
+        // فەنکشنی نیشاندانی ئاگاداری
+        function showNotification(message, type = 'info') {
+            // لابردنی ئاگاداری پێشوو
+            const existingNotification = document.querySelector('.notification');
+            if (existingNotification) existingNotification.remove();
+            
+            // دروستکردنی ئاگاداری
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            
+            const icon = type === 'success' ? 'fa-check-circle' : 
+                        type === 'error' ? 'fa-exclamation-circle' : 
+                        type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle';
+            
+            notification.innerHTML = `
+                <i class="fas ${icon}"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // لابردنی ئاگاداری دوای چەند چرکەیەک
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // فەنکشنی بینینی وردەکاری فرۆشتن
+        window.viewSaleDetails = function(saleId) {
+            const sale = cashierData.sales.find(s => s.id === saleId);
+            if (!sale) return;
+            
+            // دروستکردنی مۆدال
+            const modalHTML = `
+                <div class="modal active" id="saleDetailModal">
+                    <div class="modal-content" style="max-width: 800px;">
+                        <div class="modal-header">
+                            <h3>وردەکاری فرۆشتن: ${sale.code}</h3>
+                            <button class="modal-close" onclick="document.getElementById('saleDetailModal').remove()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div style="margin-bottom: 20px;">
+                                <p><strong>کۆدی فاکتوورە:</strong> ${sale.code}</p>
+                                <p><strong>بەروار:</strong> ${sale.date} ${sale.time}</p>
+                                <p><strong>کڕیار:</strong> ${sale.customer?.name || 'کڕیاری نەناسراو'}</p>
+                                <p><strong>شێوازی پارەدان:</strong> ${sale.payment === 'cash' ? 'نەقدی' : sale.payment === 'credit' ? 'قەرز' : 'تێکەڵ'}</p>
+                                <p><strong>کاشێر:</strong> ${sale.cashier}</p>
+                                <p><strong>شوێن:</strong> ${sale.location}</p>
+                                <p><strong>دۆخی سینک:</strong> ${sale.synced ? 'سینک کراوە' : 'سینک نەکراوە'}</p>
+                            </div>
+                            
+                            <table class="invoice-table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>ناوی کاڵا</th>
+                                        <th>یەکە</th>
+                                        <th>بڕ</th>
+                                        <th>نرخ</th>
+                                        <th>کۆی گشتی</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${sale.items.map((item, index) => `
+                                        <tr>
+                                            <td>${index + 1}</td>
+                                            <td>${item.name}</td>
+                                            <td>${getUnitName(item.unit)}</td>
+                                            <td>${item.quantity}</td>
+                                            <td>${item.price.toLocaleString()} دینار</td>
+                                            <td>${item.total.toLocaleString()} دینار</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                            
+                            <div style="margin-top: 20px; padding-top: 10px; border-top: 2px solid var(--gray-light);">
+                                <p><strong>کۆی گشتی:</strong> ${sale.total.toLocaleString()} دینار</p>
+                                <p><strong>بڕی نەقدی:</strong> ${sale.cashAmount.toLocaleString()} دینار</p>
+                                <p><strong>بڕی قەرز:</strong> ${sale.creditAmount.toLocaleString()} دینار</p>
+                                ${sale.customer ? `<p><strong>قەرزی کڕیار:</strong> ${sale.customer.debt.toLocaleString()} دینار</p>` : ''}
+                            </div>
+                            
+                            <div style="margin-top: 30px; display: flex; gap: 10px;">
+                                <button class="btn btn-warning" onclick="printSaleInvoice(${sale.id})">
+                                    <i class="fas fa-print"></i> پرێنتکردنی فاکتوور
+                                </button>
+                                ${!sale.synced ? `
+                                    <button class="btn btn-success" onclick="syncSingleSale(${sale.id}); document.getElementById('saleDetailModal').remove()">
+                                        <i class="fas fa-sync-alt"></i> سینککردنی تاک
+                                    </button>
+                                ` : ''}
+                                <button class="btn btn-danger" onclick="document.getElementById('saleDetailModal').remove()">
+                                    <i class="fas fa-times"></i> داخستن
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // لابردنی مۆدالی پێشوو
+            const existingModal = document.getElementById('saleDetailModal');
+            if (existingModal) existingModal.remove();
+            
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+        };
+
+        // فەنکشنی پرێنتکردنی فاکتووری فرۆشتن
+        window.printSaleInvoice = function(saleId) {
+            const sale = cashierData.sales.find(s => s.id === saleId);
+            if (!sale) return;
+            
+            // دروستکردنی پەڕەی نوێ بۆ پرێنت
+            const printWindow = window.open('', '_blank');
+            
+            // دروستکردنی HTML بۆ پرێنت
+            const printHTML = `
+                <!DOCTYPE html>
+                <html lang="ar" dir="rtl">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>فاکتووری فرۆشتن - ${sale.code}</title>
+                    <style>
+                        @media print {
+                            body {
+                                margin: 0;
+                                padding: 0;
+                                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                                font-size: 12px;
+                                line-height: 1.4;
+                            }
+                            
+                            .print-container {
+                                width: 80mm;
+                                padding: 5px;
+                                margin: 0 auto;
+                            }
+                            
+                            .invoice-header {
+                                text-align: center;
+                                border-bottom: 2px solid #4361ee;
+                                padding-bottom: 10px;
+                                margin-bottom: 20px;
+                            }
+                            
+                            .invoice-logo {
+                                font-size: 1.5rem;
+                                font-weight: 800;
+                                color: #4361ee;
+                                margin-bottom: 5px;
+                            }
+                            
+                            .invoice-title {
+                                font-size: 1rem;
+                                margin: 5px 0;
+                            }
+                            
+                            .invoice-table {
+                                width: 100%;
+                                border-collapse: collapse;
+                                margin-bottom: 20px;
+                            }
+                            
+                            .invoice-table th, .invoice-table td {
+                                padding: 3px 5px;
+                                text-align: right;
+                                border-bottom: 1px solid #ddd;
+                            }
+                            
+                            .invoice-table th {
+                                background-color: #f8f9fa;
+                                font-weight: bold;
+                            }
+                            
+                            .invoice-total {
+                                margin-top: 20px;
+                                padding-top: 10px;
+                                border-top: 2px solid #ddd;
+                                text-align: left;
+                            }
+                            
+                            .invoice-footer {
+                                text-align: center;
+                                margin-top: 30px;
+                                padding-top: 10px;
+                                border-top: 1px dashed #ddd;
+                                color: #6c757d;
+                                font-size: 0.9rem;
+                            }
+                        }
+                        
+                        @page {
+                            margin: 0;
+                            size: 80mm auto;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="print-container">
+                        <div class="invoice">
+                            <div class="invoice-header">
+                                <div class="invoice-logo">کاشێر</div>
+                                <h2>فاکتووری فرۆشتن</h2>
+                                <p>کۆدی فاکتوورە: ${sale.code}</p>
+                                <p>بەروار: ${sale.date} ${sale.time}</p>
+                                <p>کاشێر: ${sale.cashier}</p>
+                            </div>
+                            
+                            <table class="invoice-table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>ناوی کاڵا</th>
+                                        <th>بڕ</th>
+                                        <th>نرخ</th>
+                                        <th>کۆی</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${sale.items.map((item, index) => `
+                                        <tr>
+                                            <td>${index + 1}</td>
+                                            <td>${item.name}</td>
+                                            <td>${item.quantity} ${getUnitName(item.unit)}</td>
+                                            <td>${item.price.toLocaleString()}</td>
+                                            <td>${item.total.toLocaleString()}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                            
+                            <div class="invoice-total">
+                                <p><strong>کۆی گشتی:</strong> ${sale.total.toLocaleString()} دینار</p>
+                                <p><strong>شێوازی پارەدان:</strong> ${sale.payment === 'cash' ? 'نەقدی' : sale.payment === 'credit' ? 'قەرز' : 'تێکەڵ'}</p>
+                                <p><strong>بڕی نەقدی:</strong> ${sale.cashAmount.toLocaleString()} دینار</p>
+                                <p><strong>بڕی قەرز:</strong> ${sale.creditAmount.toLocaleString()} دینار</p>
+                            </div>
+                            
+                            <div class="invoice-footer">
+                                <p>سپاس بۆ کڕین لە سیستەمی کاشێر</p>
+                                <p>${sale.location}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <script>
+                        window.onload = function() {
+                            setTimeout(function() {
+                                window.print();
+                                setTimeout(function() {
+                                    window.close();
+                                }, 1000);
+                            }, 500);
+                        };
+                    <\/script>
+                </body>
+                </html>
+            `;
+            
+            // نووسینی HTML بۆ پەڕەی نوێ
+            printWindow.document.open();
+            printWindow.document.write(printHTML);
+            printWindow.document.close();
+        };
+
+        // فەنکشنی بینینی وردەکاری کڕیار
+        window.viewCustomerDetails = function(customerId) {
+            const customer = cashierData.customers.find(c => c.id === customerId);
+            if (!customer) return;
+            
+            // دۆزینەوەی فرۆشتنەکانی ئەم کڕیارە
+            const customerSales = cashierData.sales.filter(sale => sale.customer?.id === customerId);
+            
+            // دروستکردنی مۆدال
+            const modalHTML = `
+                <div class="modal active" id="customerDetailModal">
+                    <div class="modal-content" style="max-width: 800px;">
+                        <div class="modal-header">
+                            <h3>وردەکاری کڕیار: ${customer.name}</h3>
+                            <button class="modal-close" onclick="document.getElementById('customerDetailModal').remove()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div style="margin-bottom: 20px;">
+                                <p><strong>ناوی کڕیار:</strong> ${customer.name}</p>
+                                <p><strong>ژمارەی موبایل:</strong> ${customer.phone}</p>
+                                <p><strong>ناونیشان:</strong> ${customer.address || 'نییە'}</p>
+                                <p><strong>کۆی قەرز:</strong> <span class="debt-positive">${customer.debt.toLocaleString()} دینار</span></p>
+                                <p><strong>ژمارەی فرۆشتنەکان:</strong> ${customerSales.length}</p>
+                                <p><strong>کۆتا فرۆشتن:</strong> ${customer.lastPurchase || 'نییە'}</p>
+                            </div>
+                            
+                            <h4>مێژووی فرۆشتنەکان</h4>
+                            <div style="max-height: 300px; overflow-y: auto; margin-top: 10px;">
+                                ${customerSales.length > 0 ? `
+                                    <table style="width: 100%; border-collapse: collapse;">
+                                        <thead>
+                                            <tr>
+                                                <th style="padding: 8px; border-bottom: 1px solid #ddd; text-align: right;">کۆدی فاکتوورە</th>
+                                                <th style="padding: 8px; border-bottom: 1px solid #ddd; text-align: right;">بەروار</th>
+                                                <th style="padding: 8px; border-bottom: 1px solid #ddd; text-align: right;">بڕی قەرز</th>
+                                                <th style="padding: 8px; border-bottom: 1px solid #ddd; text-align: right;">کۆی گشتی</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            ${customerSales.map(sale => `
+                                                <tr>
+                                                    <td style="padding: 8px; border-bottom: 1px solid #ddd;">${sale.code}</td>
+                                                    <td style="padding: 8px; border-bottom: 1px solid #ddd;">${sale.date}</td>
+                                                    <td style="padding: 8px; border-bottom: 1px solid #ddd;">${sale.creditAmount.toLocaleString()} دینار</td>
+                                                    <td style="padding: 8px; border-bottom: 1px solid #ddd;">${sale.total.toLocaleString()} دینار</td>
+                                                </tr>
+                                            `).join('')}
+                                        </tbody>
+                                    </table>
+                                ` : '<p style="text-align: center; color: var(--gray);">هیچ فرۆشتنی تۆمارنەکراوە</p>'}
+                            </div>
+                            
+                            <div style="margin-top: 30px; display: flex; gap: 10px;">
+                                <button class="btn btn-success" onclick="addPayment(${customer.id}); document.getElementById('customerDetailModal').remove()">
+                                    <i class="fas fa-hand-holding-usd"></i> زیادکردنی پارەواسڵ
+                                </button>
+                                <button class="btn btn-danger" onclick="document.getElementById('customerDetailModal').remove()">
+                                    <i class="fas fa-times"></i> داخستن
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // لابردنی مۆدالی پێشوو
+            const existingModal = document.getElementById('customerDetailModal');
+            if (existingModal) existingModal.remove();
+            
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+        };
+
+        // فەنکشنی زیادکردنی پارەواسڵ
+        window.addPayment = function(customerId) {
+            const customer = cashierData.customers.find(c => c.id === customerId);
+            if (!customer) return;
+            
+            const paymentAmount = prompt(`بڕی پارەواسڵ بۆ ${customer.name} (قەرزی ئێستا: ${customer.debt.toLocaleString()} دینار):`, customer.debt.toString());
+            
+            if (paymentAmount && !isNaN(paymentAmount)) {
+                const amount = parseFloat(paymentAmount);
+                if (amount > 0 && amount <= customer.debt) {
+                    customer.debt -= amount;
+                    
+                    // دروستکردنی تۆمارێکی پارەواسڵ
+                    const paymentRecord = {
+                        id: Date.now(),
+                        customerId: customer.id,
+                        customerName: customer.name,
+                        amount: amount,
+                        date: new Date().toISOString().split('T')[0],
+                        time: new Date().toLocaleTimeString(),
+                        cashier: cashierData.currentUser,
+                        location: cashierData.cashierLocation,
+                        previousDebt: customer.debt + amount,
+                        newDebt: customer.debt
+                    };
+                    
+                    // زیادکردنی بە لیستی فرۆشتنەکان
+                    cashierData.sales.unshift({
+                        id: cashierData.sales.length + 1,
+                        code: `PAY-${new Date().getFullYear()}-${Date.now()}`,
+                        customer: customer,
+                        date: paymentRecord.date,
+                        time: paymentRecord.time,
+                        total: amount,
+                        cashAmount: amount,
+                        creditAmount: 0,
+                        payment: 'payment',
+                        items: [{
+                            name: 'پارەواسڵ',
+                            quantity: 1,
+                            unit: 'piece',
+                            price: amount,
+                            total: amount
+                        }],
+                        cashier: cashierData.currentUser,
+                        location: cashierData.cashierLocation,
+                        timestamp: new Date().toISOString(),
+                        synced: false,
+                        syncAttempts: 0
+                    });
+                    
+                    // زیادکردنی بە لیستی سینک نەکراوەکان
+                    cashierData.pendingSync.push(paymentRecord);
+                    
+                    // نوێکردنەوەی نیشاندانەکان
+                    updateDashboard();
+                    updateDebtsDisplay();
+                    
+                    showNotification(`پارەواسڵی ${amount.toLocaleString()} دینار بە سەرکەوتوویی تۆمارکرا!`, 'success');
+                    
+                    // سینککردنی خۆکار
+                    setTimeout(() => {
+                        syncWithMainServer();
+                    }, 1000);
+                } else {
+                    showNotification('بڕی پارەواسڵ نادروستە!', 'error');
+                }
+            }
+        };
+
+        // فەرمانی نوێکردنەوەی مێژوو
+        document.getElementById('refreshHistoryBtn')?.addEventListener('click', function() {
+            updateHistoryDisplay();
+            showNotification('مێژووی فرۆشتن نوێ کرایەوە!', 'info');
+        });
+
+        // فەرمانی نوێکردنەوەی قەرزەکان
+        document.getElementById('refreshDebtsBtn')?.addEventListener('click', function() {
+            updateDebtsDisplay();
+            showNotification('لیستی قەرزەکان نوێ کرایەوە!', 'info');
+        });
+
+        // زیادکردنی داتای نموونەیی
+        function initializeSampleData() {
+            // کاڵاکانی نموونەیی
+            cashierData.products = [
+                { id: 1, name: "مۆبایل سامسۆنگ A50", barcode: "BR1001", purchasePrice: 500000, salePrice: 600000, stock: 10, unit: "piece" },
+                { id: 2, name: "تەلەفزیۆن ئێڵ جی 55 ئینچ", barcode: "BR1002", purchasePrice: 800000, salePrice: 950000, stock: 5, unit: "piece" },
+                { id: 3, name: "سەرعەی بێلایین", barcode: "BR1003", purchasePrice: 75000, salePrice: 90000, stock: 20, unit: "piece" },
+                { id: 4, name: "لاپتۆپ دێل", barcode: "BR1004", purchasePrice: 1200000, salePrice: 1500000, stock: 3, unit: "piece" },
+                { id: 5, name: "مۆبایل ئایفۆن 13", barcode: "BR1005", purchasePrice: 2500000, salePrice: 3000000, stock: 2, unit: "piece" },
+                { id: 6, name: "هێدفۆن سۆنی", barcode: "BR1006", purchasePrice: 150000, salePrice: 180000, stock: 15, unit: "piece" },
+                { id: 7, name: "کەیسێکی مۆبایل", barcode: "BR1007", purchasePrice: 20000, salePrice: 25000, stock: 50, unit: "piece" },
+                { id: 8, name: "شارتەری مۆبایل", barcode: "BR1008", purchasePrice: 30000, salePrice: 40000, stock: 30, unit: "piece" }
+            ];
+            
+            // کڕیارەکانی نموونەیی
+            cashierData.customers = [
+                { id: 1, name: "عەلی محەممەد", phone: "07701234567", address: "هەولێر", debt: 50000, lastPurchase: "2024-01-10" },
+                { id: 2, name: "حوسێن عەلی", phone: "07707654321", address: "سلێمانی", debt: 25000, lastPurchase: "2024-01-12" },
+                { id: 3, name: "کەریم عەبدوڵڵا", phone: "07705556677", address: "دهۆک", debt: 0, lastPurchase: "2024-01-05" },
+                { id: 4, name: "سارا عەلی", phone: "07708889900", address: "هەولێر", debt: 150000, lastPurchase: "2024-01-08" },
+                { id: 5, name: "نازنین محەممەد", phone: "07701112233", address: "سلێمانی", debt: 75000, lastPurchase: "2024-01-11" }
+            ];
+            
+            // فرۆشتنەکانی نموونەیی
+            const today = new Date().toISOString().split('T')[0];
+            const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+            
+            cashierData.sales = [
+                {
+                    id: 1,
+                    code: "F-2024-001",
+                    customer: cashierData.customers[0],
+                    date: today,
+                    time: "10:30",
+                    total: 600000,
+                    cashAmount: 600000,
+                    creditAmount: 0,
+                    payment: "cash",
+                    items: [
+                        { name: "مۆبایل سامسۆنگ A50", quantity: 1, unit: "piece", price: 600000, total: 600000, barcode: "BR1001" }
+                    ],
+                    cashier: "cashier1",
+                    location: "فرۆشگای سەرەکی",
+                    timestamp: new Date().toISOString(),
+                    synced: true,
+                    syncAttempts: 1
+                },
+                {
+                    id: 2,
+                    code: "F-2024-002",
+                    customer: cashierData.customers[1],
+                    date: today,
+                    time: "11:45",
+                    total: 950000,
+                    cashAmount: 0,
+                    creditAmount: 950000,
+                    payment: "credit",
+                    items: [
+                        { name: "تەلەفزیۆن ئێڵ جی 55 ئینچ", quantity: 1, unit: "piece", price: 950000, total: 950000, barcode: "BR1002" }
+                    ],
+                    cashier: "cashier1",
+                    location: "فرۆشگای سەرەکی",
+                    timestamp: new Date().toISOString(),
+                    synced: false,
+                    syncAttempts: 0
+                },
+                {
+                    id: 3,
+                    code: "F-2024-003",
+                    customer: cashierData.customers[3],
+                    date: yesterday,
+                    time: "14:20",
+                    total: 450000,
+                    cashAmount: 200000,
+                    creditAmount: 250000,
+                    payment: "mixed",
+                    items: [
+                        { name: "سەرعەی بێلایین", quantity: 2, unit: "piece", price: 90000, total: 180000, barcode: "BR1003" },
+                        { name: "هێدفۆن سۆنی", quantity: 1, unit: "piece", price: 180000, total: 180000, barcode: "BR1006" },
+                        { name: "شارتەری مۆبایل", quantity: 2, unit: "piece", price: 40000, total: 80000, barcode: "BR1008" }
+                    ],
+                    cashier: "cashier2",
+                    location: "فرۆشگای ٢",
+                    timestamp: new Date(Date.now() - 86400000).toISOString(),
+                    synced: true,
+                    syncAttempts: 1
+                }
+            ];
+            
+            // زیادکردنی فرۆشتنەکانی ئەمڕۆ بۆ لیستی ئەمڕۆ
+            cashierData.todaySales = cashierData.sales.filter(sale => sale.date === today);
+            
+            // زیادکردنی فرۆشتنە سینک نەکراوەکان
+            cashierData.pendingSync = cashierData.sales.filter(sale => !sale.synced);
+        }
+
+        // ڕێکخستنی هەموو کارگێڕەکان
+        function setupEventHandlers() {
+            // داخستنی مۆدالەکان
+            document.getElementById('closePrintModal')?.addEventListener('click', function() {
+                document.getElementById('printModal').classList.remove('active');
+            });
+            
+            document.getElementById('closeInvoiceBtn')?.addEventListener('click', function() {
+                document.getElementById('printModal').classList.remove('active');
+            });
+            
+            // پرێنتکردنی فاکتوور
+            document.getElementById('printSmallBtn')?.addEventListener('click', function() {
+                const invoiceCode = document.getElementById('invoiceCode').textContent;
+                // لێرە دەتوانیت فەنکشنی پرێنتکردن بانگ بکەی
+                printSaleInvoiceFromCode(invoiceCode);
+            });
+            
+            document.getElementById('printA4Btn')?.addEventListener('click', function() {
+                // لێرە دەتوانیت فەنکشنی پرێنتکردنی A4 بانگ بکەی
+                showNotification('پرێنتکردنی A4 لە وەشانی داهاتوودا بەردەست دەبێت', 'info');
+            });
+            
+            // گەڕان لە مێژوو
+            const historySearch = document.getElementById('historySearch');
+            if (historySearch) {
+                historySearch.addEventListener('input', function() {
+                    updateHistoryDisplay();
+                });
+            }
+            
+            // فیلتەرەکانی مێژوو
+            const historyDateFilter = document.getElementById('historyDateFilter');
+            const historyPaymentFilter = document.getElementById('historyPaymentFilter');
+            const historySyncFilter = document.getElementById('historySyncFilter');
+            
+            if (historyDateFilter) {
+                historyDateFilter.addEventListener('change', updateHistoryDisplay);
+            }
+            
+            if (historyPaymentFilter) {
+                historyPaymentFilter.addEventListener('change', updateHistoryDisplay);
+            }
+            
+            if (historySyncFilter) {
+                historySyncFilter.addEventListener('change', updateHistoryDisplay);
+            }
+            
+            // گەڕان لە قەرزەکان
+            const debtSearch = document.getElementById('debtSearch');
+            if (debtSearch) {
+                debtSearch.addEventListener('input', function() {
+                    const query = this.value.toLowerCase();
+                    const items = document.querySelectorAll('#debtsList .list-item');
+                    
+                    items.forEach(item => {
+                        const text = item.textContent.toLowerCase();
+                        if (text.includes(query)) {
+                            item.style.display = 'flex';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            }
+            
+            // پەیوەستکردنی داشبۆرد
+            document.querySelectorAll('.card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const cardId = this.classList[1];
+                    
+                    if (cardId === 'card-1' || cardId === 'card-4') {
+                        showSection('history');
+                    } else if (cardId === 'card-5') {
+                        showSection('debts');
+                    } else if (cardId === 'card-2' || cardId === 'card-3' || cardId === 'card-6') {
+                        showSection('sale');
+                    }
+                });
+            });
+        }
+
+        // فەنکشنی پرێنتکردنی فاکتوور لە کۆد
+        function printSaleInvoiceFromCode(invoiceCode) {
+            const sale = cashierData.sales.find(s => s.code === invoiceCode);
+            if (sale) {
+                printSaleInvoice(sale.id);
+            }
+        }
+
+        // دەستپێکردن کاتێ پەڕە بار دەکرێت
+        document.addEventListener('DOMContentLoaded', function() {
+            // هیچ کارێک لێرە ناکرێت، هەموو شتێک لە دوای چوونەژوورەوە دەست پێدەکات
+        });
+
+        // API کارگێڕی بۆ پەیوەندیکردن بە سیستەمی سەرەکی
+        // ئەم API کارانە لە وەشانی داهاتوودا کار دەکەن
+        const CashierAPI = {
+            // ناردنی فرۆشتنەکان بۆ سیستەمی سەرەکی
+            async syncSales(sales) {
+                try {
+                    // ئەمە نموونەیەکی رەستەی APIە
+                    const response = await fetch(`${API_CONFIG.MAIN_SERVER_URL}/sales/sync`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${API_CONFIG.API_KEY}`,
+                            'X-Cashier-ID': API_CONFIG.CASHIER_ID,
+                            'X-Cashier-User': cashierData.currentUser,
+                            'X-Cashier-Location': cashierData.cashierLocation
+                        },
+                        body: JSON.stringify({
+                            sales: sales,
+                            timestamp: new Date().toISOString()
+                        })
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    const data = await response.json();
+                    return data;
+                } catch (error) {
+                    console.error('API sync error:', error);
+                    throw error;
+                }
+            },
+            
+            // وەرگرتنی کاڵاکان لە سیستەمی سەرەکی
+            async getProducts() {
+                try {
+                    const response = await fetch(`${API_CONFIG.MAIN_SERVER_URL}/products`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${API_CONFIG.API_KEY}`,
+                            'X-Cashier-ID': API_CONFIG.CASHIER_ID
+                        }
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    const data = await response.json();
+                    return data.products;
+                } catch (error) {
+                    console.error('API get products error:', error);
+                    throw error;
+                }
+            },
+            
+            // وەرگرتنی کڕیارەکان لە سیستەمی سەرەکی
+            async getCustomers() {
+                try {
+                    const response = await fetch(`${API_CONFIG.MAIN_SERVER_URL}/customers`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${API_CONFIG.API_KEY}`,
+                            'X-Cashier-ID': API_CONFIG.CASHIER_ID
+                        }
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    const data = await response.json();
+                    return data.customers;
+                } catch (error) {
+                    console.error('API get customers error:', error);
+                    throw error;
+                }
+            },
+            
+            // پشکنینی پەیوەندی
+            async checkConnection() {
+                try {
+                    const response = await fetch(`${API_CONFIG.MAIN_SERVER_URL}/health`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${API_CONFIG.API_KEY}`
+                        }
+                    });
+                    
+                    return response.ok;
+                } catch (error) {
+                    return false;
+                }
+            }
+        };
+
+        // نموونەیەک بۆ چۆنیەتی بەکارهێنانی API لە وەشانی رێکدا
+        async function realSyncWithMainServer() {
+            try {
+                // پشکنینی پەیوەندی
+                const isConnected = await CashierAPI.checkConnection();
+                cashierData.isOnline = isConnected;
+                
+                if (!isConnected) {
+                    throw new Error('نابەستراوە بە سێرڤەری سەرەکیەوە');
+                }
+                
+                // ناردنی فرۆشتنە سینک نەکراوەکان
+                if (cashierData.pendingSync.length > 0) {
+                    const result = await CashierAPI.syncSales(cashierData.pendingSync);
+                    
+                    if (result.success) {
+                        // نیشانەدان بە فرۆشتنەکان وەک سینک کراو
+                        cashierData.pendingSync.forEach(sale => {
+                            sale.synced = true;
+                            sale.syncDate = new Date().toISOString();
+                        });
+                        
+                        // پاککردنەوەی لیستی سینک نەکراوەکان
+                        cashierData.pendingSync = [];
+                        
+                        // نوێکردنەوەی نیشاندانەکان
+                        updateDashboard();
+                        updateHistoryDisplay();
+                        
+                        return true;
+                    } else {
+                        throw new Error(result.message || 'هەڵە لە سینککردن');
+                    }
+                }
+                
+                return true;
+            } catch (error) {
+                console.error('سینککردنی رەستە هەڵە:', error);
+                
+                // زیادکردنی ژمارەی هەوڵەکان
+                cashierData.pendingSync.forEach(sale => {
+                    sale.syncAttempts = (sale.syncAttempts || 0) + 1;
+                });
+                
+                throw error;
+            }
+        }
+    </script>
+</body>
+</html>
